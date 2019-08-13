@@ -21,6 +21,10 @@ class ArticlesController < ApplicationController
    @article = Article.find(params[:id])
  end
 
+ def index
+  @articles = Article.all
+ end
+
  def update
   @article = Article.find(params[:id])
   if @article.update(article_params)
@@ -30,7 +34,7 @@ class ArticlesController < ApplicationController
    flash[:notice] = "Article was not updated"
    render 'edit'
   end
-end
+ end
 
  private
   def article_params
