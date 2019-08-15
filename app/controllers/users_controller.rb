@@ -1,4 +1,5 @@
 class UsersController < ApplicationController
+  #skip_before_action :verify_user_is_authenticated, only: [:new,:create]
 
   def new
     @user = User.new
@@ -7,7 +8,9 @@ class UsersController < ApplicationController
   def create
     @user = User.new(user_params)
     if @user.save
-     flash[:success] = "Welcome to the alpha blog #{@user.username}"
+     session[:user_id] = @user.id
+     session_login(@user)
+     flash[:success] = "Welcome to your blog #{@user.username}"
      redirect_to articles_path
     else
      render 'new'
@@ -26,6 +29,10 @@ class UsersController < ApplicationController
     else
      render 'edit'
     end
+  end
+
+  def show
+    @user = User.find(params[:id])
   end
 
   private
