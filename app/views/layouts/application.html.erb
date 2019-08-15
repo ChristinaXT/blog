@@ -3,12 +3,17 @@
   <head>
     <title>My Blog</title>
     <%= csrf_meta_tags %>
+
     <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
   </head>
-<body>
+
+  <body>
     <%= render 'layouts/navigation' %>
-    <%= render 'shared/messages' %>
+    <%= render 'layouts/messages' %>
+    <div class="container">
     <%= yield %>
+    </div>
+    <%= debug(params) if Rails.env.development? %>
   </body>
 </html>
